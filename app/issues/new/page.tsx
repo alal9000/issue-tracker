@@ -1,6 +1,6 @@
 "use client";
 import { Button, Callout, Text, TextField } from "@radix-ui/themes";
-import SimpleMDE from "react-simplemde-editor";
+import dynamic from "next/dynamic";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
@@ -12,6 +12,9 @@ import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
 
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false
+});
 type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
@@ -36,7 +39,7 @@ const NewIssuePage = () => {
       setSubmitting(false);
       setError("An unexpected error has occurred");
     }
-  })
+  });
 
   return (
     <div className="max-w-xl">
@@ -45,10 +48,7 @@ const NewIssuePage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form
-        className="space-y-3"
-        onSubmit={onSubmit}
-      >
+      <form className="space-y-3" onSubmit={onSubmit}>
         <TextField.Root>
           <TextField.Input placeholder="Title" {...register("title")} />
         </TextField.Root>
