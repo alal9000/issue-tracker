@@ -5,6 +5,8 @@ import { Container, Theme, ThemePanel } from "@radix-ui/themes";
 import NavBar from "./NavBar";
 import AuthProvider from "./auth/Provider";
 import QueryClientProvider from "./QueryClientProvider";
+import "@radix-ui/themes/styles.css";
+import "./theme-config.css";
 
 const inter = Inter({
   variable: "--font-inter",
